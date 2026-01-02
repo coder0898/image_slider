@@ -1,0 +1,217 @@
+/* *{
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+}
+
+body{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+header{
+  text-align: center;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-size: clamp(2rem,5vw,3.2rem);
+  line-height: 1.1;
+}
+
+.slider-container{
+  width: 90%;
+  max-width: 800px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+
+.image-container{
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.image-container img {
+  width: 100%; /* makes image responsive 
+  height: auto; /* maintain aspect ratio 
+  display: block;
+  border-radius: 10px; /* soft corners 
+  transition: transform 0.5s ease, opacity 0.5s ease; /* smooth animations 
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: clamp(1rem,2vw,1.2rem);
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  background-color: #646cff;
+  color: #fff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+ */
+
+/* Reset and basic setup */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f5f5; /* soft background to make slider stand out */
+}
+
+/* Header */
+header {
+  text-align: center;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-size: clamp(2rem, 5vw, 3.2rem); /* responsive font size */
+  line-height: 1.1;
+  color: #333; /* good contrast */
+}
+
+/* Slider container (keeps original design intent) */
+.slider-container {
+  width: 90%;
+  max-width: 800px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+  position: relative; /* for button positioning */
+}
+
+.image-container {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  aspect-ratio: 16/9; /* keeps correct ratio */
+  overflow: hidden;
+}
+
+
+.image-container img {
+  position: absolute; /* stack images */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  opacity: 0; /* hidden by default */
+  transition: opacity 0.5s ease-in-out; /* for manual fade */
+}
+
+/* Active image for manual next/prev */
+.image-container img.auto.active {
+  animation: none !important; 
+  opacity: 1 !important;
+  z-index: 1;
+}
+
+
+@keyframes fadeAuto {
+  0%, 20% { opacity: 1; }
+  33%, 100% { opacity: 0; }
+}
+
+/* Automatic slideshow (optional) */
+.image-container img.auto:not(.active) {
+  animation: fadeAuto 15s infinite;
+}
+
+
+/* stagger each image for automatic slideshow */
+.image-container img.auto:nth-child(1) { animation-delay: 0s; }
+.image-container img.auto:nth-child(2) { animation-delay: 3s; }
+.image-container img.auto:nth-child(3) { animation-delay: 6s; }
+.image-container img.auto:nth-child(4) { animation-delay: 9s; }
+.image-container img.auto:nth-child(5) { animation-delay: 12s; }
+
+/* Optional hover effect for subtle interaction */
+.image-container img:hover {
+  transform: scale(1.02);
+}
+
+/* Navigation buttons (same design intent, just more modern) */
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  margin: 1rem ;
+  transition: background-color 0.25s, transform 0.25s;
+}
+
+/* Button hover effect */
+button:hover {
+  background-color: #646cff;
+  color: #fff;
+  transform: scale(1.05); /* subtle feedback on hover */
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+.dots-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  gap: 8px;
+}
+
+.dots-container .dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #ccc;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.dots-container .dot.active {
+  background-color: #646cff;
+}
+
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+  h1 {
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+  }
+
+  button {
+    padding: 0.5em 1em;
+    font-size: 1rem;
+  }
+}
